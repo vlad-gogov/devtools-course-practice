@@ -11,13 +11,13 @@ class Dheap {
     std::vector<int> weight;
 
     int findMinChild(int node) const;
-    void swap(int i, int j);
+    void transpose(int i, int j);
     void diving(int node);
     void emersion(int node);
     void hilling();
 
-  public:
-    Dheap(int base_ = 2);
+ public:
+    explicit Dheap(int base_ = 2);
     Dheap(int base_, const std::vector<int> weight_);
 
     int popMin();

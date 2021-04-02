@@ -38,6 +38,13 @@ TEST(DheapTest, can_get_weights) {
     ASSERT_EQ(a.getWeight(), weight);
 }
 
+TEST(DheapTest, can_get_size_dheap) {
+    int base = 2;
+    std::vector<int> weight = {1, 2, 8, 9, 10, 5};
+    Dheap a(base, weight);
+    ASSERT_EQ(a.getSize(), weight.size());
+}
+
 TEST(DheapTest, can_create_with_hilling_weights) {
     int base = 3;
     std::vector<int> weight = {1, 2, 3, 4};
@@ -68,11 +75,20 @@ TEST(DheapTest, can_hilling_dheap) {
     ASSERT_EQ(a.getWeight(), hilling_weight);
 }
 
-TEST(DheapTest, can_insert_dheap) {
+TEST(DheapTest, can_insert_min_child_dheap) {
     int base = 4;
     int insert_child = 1;
     std::vector<int> weight = {11, 9, 9, 6, 8, 3, 4, 12, 7};
     Dheap a(base, weight);
     a.insert(insert_child);
     ASSERT_EQ(a.topMin(), insert_child);
+}
+
+TEST(DheapTest, can_insert_max_child_dheap) {
+    int base = 4;
+    int insert_child = 15;
+    std::vector<int> weight = {3, 4, 12, 7, 11, 9, 6, 8, 14};
+    Dheap a(base, weight);
+    a.insert(insert_child);
+    ASSERT_EQ(a.getWeight().back(), insert_child);
 }

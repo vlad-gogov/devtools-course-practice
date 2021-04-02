@@ -2,6 +2,10 @@
 
 #include "include/dheap.h"
 
+#include <stdexcept>
+#include <algorithm>
+#include <vector>
+
 Dheap::Dheap(int base_) : base(base_) {
     if (base_ <= 1)
         throw std::runtime_error("Base must be greater than 1");
@@ -20,7 +24,9 @@ int Dheap::findMinChild(int node) const {
     if (node * base + 1 >= weight.size())
         return -1;
     int firstChild = node * base + 1;
-    int lastChild = std::min(static_cast<int>(weight.size()) - 1, base * (node + 1));
+    int lastChild =
+        std::min(static_cast<int>(weight.size()) - 1,
+                 base * (node + 1));
     int minChild = firstChild;
     for (int i = firstChild + 1; i <= lastChild; i++) {
         if (weight[i] < weight[minChild])
@@ -28,7 +34,6 @@ int Dheap::findMinChild(int node) const {
     }
     return minChild;
 }
-
 
 void Dheap::diving(int node) {
     int minChild = findMinChild(node);
@@ -81,6 +86,6 @@ size_t Dheap::getSize() const {
     return weight.size();
 }
 
-const std::vector<int>& Dheap::getWeight() const{
+const std::vector<int>& Dheap::getWeight() const {
     return weight;
 }

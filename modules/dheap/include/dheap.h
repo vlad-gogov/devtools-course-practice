@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <vector>
-#include <stdexcept>
 
 #ifndef MODULES_DHEAP_INCLUDE_DHEAP_H_
 #define MODULES_DHEAP_INCLUDE_DHEAP_H_
@@ -17,7 +16,7 @@ class Dheap {
     void emersion(int node);
     void hilling();
 
-public:
+  public:
     Dheap(int base_ = 2);
     Dheap(int base_, const std::vector<int> weight_);
 
@@ -30,6 +29,5 @@ public:
 
     const std::vector<int>& getWeight() const;
 };
-
 
 #endif  // MODULES_DHEAP_INCLUDE_DHEAP_H_

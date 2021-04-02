@@ -62,11 +62,9 @@ void Dheap::hilling() {
         diving(i);
 }
 
-int Dheap::popMin() {
-    int min = weight.front();
+void Dheap::popMin() {
     weight.front() = weight.back();
     diving(0);
-    return min;
 }
 
 int Dheap::topMin() const {
@@ -75,7 +73,8 @@ int Dheap::topMin() const {
 
 void Dheap::insert(int value) {
     weight.push_back(value);
-    emersion(weight.back());
+    int size = static_cast<int>(weight.size());
+    emersion(size - 1);
 }
 
 int Dheap::getBase() const {

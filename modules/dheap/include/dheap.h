@@ -20,7 +20,7 @@ class Dheap {
     explicit Dheap(int base_ = 2);
     Dheap(int base_, const std::vector<int> weight_);
 
-    int popMin();
+    void popMin();
     int topMin() const;
 
     void insert(int value);

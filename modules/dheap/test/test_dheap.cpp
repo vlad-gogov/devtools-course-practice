@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <vector>
+
 #include "include/dheap.h"
 
 TEST(DheapTest, can_create_default) {

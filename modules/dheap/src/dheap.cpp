@@ -21,12 +21,12 @@ void Dheap::transpose(int i, int j) {
 }
 
 int Dheap::findMinChild(int node) const {
-    if (node * base + 1 >= weight.size())
+    int size = static_cast<int>(weight.size());
+    if (node * base + 1 >= size)
         return -1;
     int firstChild = node * base + 1;
     int lastChild =
-        std::min(static_cast<int>(weight.size()) - 1,
-                 base * (node + 1));
+        std::min(size - 1, base * (node + 1));
     int minChild = firstChild;
     for (int i = firstChild + 1; i <= lastChild; i++) {
         if (weight[i] < weight[minChild])

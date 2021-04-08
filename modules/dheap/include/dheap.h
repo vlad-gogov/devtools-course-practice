@@ -19,6 +19,7 @@ class Dheap {
  public:
     explicit Dheap(int base_ = 2);
     Dheap(int base_, const std::vector<int> weight_);
+    ~Dheap() = default;
 
     void popMin();
     int topMin() const;

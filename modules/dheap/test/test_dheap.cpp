@@ -31,55 +31,55 @@ TEST(DheapTest, can_create_with_base_5) {
     ASSERT_EQ(a.getBase(), base);
 }
 
-TEST(DheapTest, can_get_weights) {
+TEST(DheapTest, can_get_weightss) {
     int base = 2;
-    std::vector<int> weight = {1, 2};
-    Dheap a(base, weight);
-    ASSERT_EQ(a.getWeight(), weight);
+    std::vector<int> weights = {1, 2};
+    Dheap a(base, weights);
+    ASSERT_EQ(a.getWeights(), weights);
 }
 
 TEST(DheapTest, can_get_size_dheap) {
     int base = 2;
-    std::vector<int> weight = {1, 2, 8, 9, 10, 5};
-    Dheap a(base, weight);
-    ASSERT_EQ(a.getSize(), weight.size());
+    std::vector<int> weights = {1, 2, 8, 9, 10, 5};
+    Dheap a(base, weights);
+    ASSERT_EQ(a.getSize(), weights.size());
 }
 
-TEST(DheapTest, can_create_with_hilling_weights) {
+TEST(DheapTest, can_create_with_hilling_weightss) {
     int base = 3;
-    std::vector<int> weight = {1, 2, 3, 4};
-    Dheap a(base, weight);
-    ASSERT_EQ(a.getWeight(), weight);
+    std::vector<int> weights = {1, 2, 3, 4};
+    Dheap a(base, weights);
+    ASSERT_EQ(a.getWeights(), weights);
 }
 
 TEST(DheapTest, can_pop_min) {
     int base = 2;
-    std::vector<int> weight = {5, 6, 7};
-    Dheap a(base, weight);
+    std::vector<int> weights = {5, 6, 7};
+    Dheap a(base, weights);
     a.popMin();
-    ASSERT_NE(a.getWeight()[0], weight[0]);
+    ASSERT_NE(a.getWeights()[0], weights[0]);
 }
 
 TEST(DheapTest, can_top_min) {
     int base = 2;
-    std::vector<int> weight = {5, 6, 7};
-    Dheap a(base, weight);
-    ASSERT_EQ(a.topMin(), weight[0]);
+    std::vector<int> weights = {5, 6, 7};
+    Dheap a(base, weights);
+    ASSERT_EQ(a.topMin(), weights[0]);
 }
 
-TEST(DheapTest, can_hilling_dheap) {
+TEST(DheapTest, can_hill_dheap) {
     int base = 4;
-    std::vector<int> weight = {11, 9, 9, 6, 8, 3, 4, 12, 7};
-    Dheap a(base, weight);
-    std::vector<int> hilling_weight = {3, 4, 9, 6, 8, 9, 11, 12, 7};
-    ASSERT_EQ(a.getWeight(), hilling_weight);
+    std::vector<int> weights = {11, 9, 9, 6, 8, 3, 4, 12, 7};
+    Dheap a(base, weights);
+    std::vector<int> hilled_weights = {3, 4, 9, 6, 8, 9, 11, 12, 7};
+    ASSERT_EQ(a.getWeights(), hilled_weights);
 }
 
 TEST(DheapTest, can_insert_min_child_dheap) {
     int base = 4;
     int insert_child = 1;
-    std::vector<int> weight = {11, 9, 9, 6, 8, 3, 4, 12, 7};
-    Dheap a(base, weight);
+    std::vector<int> weights = {11, 9, 9, 6, 8, 3, 4, 12, 7};
+    Dheap a(base, weights);
     a.insert(insert_child);
     ASSERT_EQ(a.topMin(), insert_child);
 }
@@ -87,8 +87,8 @@ TEST(DheapTest, can_insert_min_child_dheap) {
 TEST(DheapTest, can_insert_max_child_dheap) {
     int base = 4;
     int insert_child = 15;
-    std::vector<int> weight = {3, 4, 12, 7, 11, 9, 6, 8, 14};
-    Dheap a(base, weight);
+    std::vector<int> weights = {3, 4, 12, 7, 11, 9, 6, 8, 14};
+    Dheap a(base, weights);
     a.insert(insert_child);
-    ASSERT_EQ(a.getWeight().back(), insert_child);
+    ASSERT_EQ(a.getWeights().back(), insert_child);
 }

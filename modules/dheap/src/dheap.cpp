@@ -2,8 +2,8 @@
 
 #include "include/dheap.h"
 
-#include <stdexcept>
 #include <algorithm>
+#include <stdexcept>
 #include <vector>
 
 Dheap::Dheap(int base_) : base(base_) {
@@ -11,25 +11,24 @@ Dheap::Dheap(int base_) : base(base_) {
         throw std::runtime_error("Base must be greater than 1");
 }
 
-Dheap::Dheap(int base_, const std::vector<int> weight_) : base(base_) {
-    weight = weight_;
+Dheap::Dheap(int base_, const std::vector<int>& weights_) : base(base_), weights(weights_) {
     hilling();
 }
 
 void Dheap::transpose(int i, int j) {
-    std::swap(weight[i], weight[j]);
+    std::swap(weights[i], weights[j]);
 }
 
 int Dheap::findMinChild(int node) const {
-    int size = static_cast<int>(weight.size());
-    if (node * base + 1 >= size)
-        return -1;
+    int size = static_cast<int>(weights.size());
     int firstChild = node * base + 1;
+    if (firstChild >= size)
+        return -1;
     int lastChild =
         std::min(size - 1, base * (node + 1));
     int minChild = firstChild;
     for (int i = firstChild + 1; i <= lastChild; i++) {
-        if (weight[i] < weight[minChild])
+        if (weights[i] < weights[minChild])
             minChild = i;
     }
     return minChild;
@@ -37,7 +36,7 @@ int Dheap::findMinChild(int node) const {
 
 void Dheap::diving(int node) {
     int minChild = findMinChild(node);
-    while ((minChild != -1) && (weight[minChild] < weight[node])) {
+    while ((minChild != -1) && (weights[minChild] < weights[node])) {
         transpose(minChild, node);
         node = minChild;
         minChild = findMinChild(node);
@@ -47,7 +46,7 @@ void Dheap::diving(int node) {
 void Dheap::emersion(int node) {
     while (node > 0) {
         int parentChild = (node - 1) / base;
-        if (weight[parentChild] > weight[node]) {
+        if (weights[parentChild] > weights[node]) {
             transpose(node, parentChild);
             node = parentChild;
         } else {
@@ -57,23 +56,24 @@ void Dheap::emersion(int node) {
 }
 
 void Dheap::hilling() {
-    int size = static_cast<int>(weight.size());
+    int size = static_cast<int>(weights.size());
     for (int i = size - 1; i >= 0; i--)
         diving(i);
 }
 
 void Dheap::popMin() {
-    weight.front() = weight.back();
+    weights.front() = weights.back();
     diving(0);
+    weights.pop_back();
 }
 
 int Dheap::topMin() const {
-    return weight.front();
+    return weights.front();
 }
 
 void Dheap::insert(int value) {
-    weight.push_back(value);
-    int size = static_cast<int>(weight.size());
+    weights.push_back(value);
+    int size = static_cast<int>(weights.size());
     emersion(size - 1);
 }
 
@@ -82,9 +82,9 @@ int Dheap::getBase() const {
 }
 
 size_t Dheap::getSize() const {
-    return weight.size();
+    return weights.size();
 }
 
-const std::vector<int>& Dheap::getWeight() const {
-    return weight;
+const std::vector<int>& Dheap::getWeights() const {
+    return weights;
 }

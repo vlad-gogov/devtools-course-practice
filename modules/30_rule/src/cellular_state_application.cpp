@@ -2,6 +2,7 @@
 
 #include "include/cellular_state_application.h"
 
+#include <cstring>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -35,7 +36,7 @@ std::string CellularStateApplication::operator()(int argc,
         return "ERROR " + std::string(argv[2]) + e.what() + "\n";
     }
 
-    unsigned int cols = static_cast<unsigned int>(strlen(argv[3]));
+    unsigned int cols = static_cast<unsigned int>(std::strlen(argv[3]));
     std::vector<CellState> states(cols);
     for (unsigned int i = 0; i < cols; i++) {
         if (argv[3][i] != 'A' && argv[3][i] != 'D')
@@ -43,13 +44,6 @@ std::string CellularStateApplication::operator()(int argc,
         states[i] = argv[3][i] == 'A' ? CellState::ALIVE : CellState::DEAD;
     }
     CellularAuto automat(rows, cols, states);
-    /*
-    try {
-        automat = CellularAuto(rows, cols, states);
-    } catch (const char* e) {
-        return "ERROR: " + std::string(e) + "\n";
-    }
-    */
 
     automat.iterate(count_iteration);
 

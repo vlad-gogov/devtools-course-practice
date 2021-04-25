@@ -4,9 +4,9 @@
 
 #include <cstring>
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include <string>
-#include <sstream>
 #include <vector>
 
 #include "include/30_rule.h"
@@ -23,17 +23,17 @@ std::string CellularStateApplication::operator()(int argc,
     try {
         count_iteration = std::stoi(argv[1]);
         if (count_iteration <= 0)
-            throw std::runtime_error(" invalid arguments");
+            throw std::runtime_error("invalid arguments");
     } catch (std::exception& e) {
-        return "ERROR " + std::string(argv[1]) + e.what() + ".\n";
+        return "ERROR " + std::string(argv[1]) + " "  + e.what() + ".\n";
     }
 
     try {
         rows = std::stoi(argv[2]);
         if (rows <= 0)
-            throw std::runtime_error(" invalid arguments");
+            throw std::runtime_error("invalid arguments");
     } catch (std::exception& e) {
-        return "ERROR " + std::string(argv[2]) + e.what() + "\n";
+        return "ERROR " + std::string(argv[2]) + " " + e.what() + "\n";
     }
 
     unsigned int cols = static_cast<unsigned int>(std::strlen(argv[3]));

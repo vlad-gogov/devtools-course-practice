@@ -3,7 +3,6 @@
 #include "include/cellular_state_application.h"
 
 #include <cstring>
-#include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -11,12 +10,16 @@
 
 #include "include/30_rule.h"
 
+inline static const std::string getErrorText(const char* argv, const char* message) {
+    return "ERROR " + std::string(argv) + " " + message + "\n";
+}
+
 std::string CellularStateApplication::operator()(int argc,
                                                  const char* argv[]) const {
     if (argc == 1) {
         return help(argv[0]);
     } else if (argc != 4) {
-        return "ERROR: Should be 4 arguments.\n";
+        return "ERROR: Should be 4 arguments.\n" + help(argv[0]);
     }
 
     int count_iteration, rows;
@@ -25,7 +28,7 @@ std::string CellularStateApplication::operator()(int argc,
         if (count_iteration <= 0)
             throw std::runtime_error("invalid arguments");
     } catch (std::exception& e) {
-        return "ERROR " + std::string(argv[1]) + " "  + e.what() + ".\n";
+            return getErrorText(argv[1], e.what()) + help(argv[0]);
     }
 
     try {
@@ -33,27 +36,27 @@ std::string CellularStateApplication::operator()(int argc,
         if (rows <= 0)
             throw std::runtime_error("invalid arguments");
     } catch (std::exception& e) {
-        return "ERROR " + std::string(argv[2]) + " " + e.what() + "\n";
+        return getErrorText(argv[2], e.what()) + help(argv[0]);
     }
 
-    unsigned int cols = static_cast<unsigned int>(std::strlen(argv[3]));
+    int cols = static_cast<int>(std::strlen(argv[3]));
     std::vector<CellState> states(cols);
-    for (unsigned int i = 0; i < cols; i++) {
+    for (int i = 0; i < cols; i++) {
         if (argv[3][i] != 'A' && argv[3][i] != 'D')
-            return "ERROR: Incorrect state.\n";
+            return "ERROR: Incorrect state.\n" + help(argv[0]);
         states[i] = argv[3][i] == 'A' ? CellState::ALIVE : CellState::DEAD;
     }
     CellularAuto automat(rows, cols, states);
 
     automat.iterate(count_iteration);
 
+    const std::vector<std::vector<CellState>>& automat_states = automat.get_state();
     std::ostringstream stream;
     for (int i = 0; i < rows; i++) {
-        for (unsigned int j = 0; j < cols; j++) {
-            stream << (automat.get_state()[i][j] == CellState::ALIVE ? "A"
-                                                                     : "D");
+        for (int j = 0; j < cols; j++) {
+            stream << (automat_states[i][j] == CellState::ALIVE ? "A" : "D");
         }
-        stream << "\n";
+        stream << std::endl;
     }
     return stream.str();
 }

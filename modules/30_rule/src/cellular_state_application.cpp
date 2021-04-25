@@ -10,11 +10,11 @@
 
 #include "include/30_rule.h"
 
-std::string CellularStateApplication::operator()(int argc, const char* argv[]) const {
+std::string CellularStateApplication::operator()(int argc,
+                                                 const char* argv[]) const {
     if (argc == 1) {
         return help(argv[0]);
-    }
-    else if (argc != 4) {
+    } else if (argc != 4) {
         return "ERROR: Should be 4 arguments.\n";
     }
 
@@ -56,7 +56,8 @@ std::string CellularStateApplication::operator()(int argc, const char* argv[]) c
     std::ostringstream stream;
     for (int i = 0; i < rows; i++) {
         for (unsigned int j = 0; j < cols; j++) {
-            stream << (automat.get_state()[i][j] == CellState::ALIVE ? "A" : "D");
+            stream << (automat.get_state()[i][j] == CellState::ALIVE ? "A"
+                                                                     : "D");
         }
         stream << "\n";
     }
@@ -64,12 +65,10 @@ std::string CellularStateApplication::operator()(int argc, const char* argv[]) c
 }
 
 std::string CellularStateApplication::help(const std::string& filename) const {
-    return "This is a celluar state application.\n\nPlease provide arguments in the following format:\n\n$ " +
-
-          filename + " <count_iterations> <rows> " + "<state>\n\n" +
-
-          "Where all arguments are positive integer numbers, " +
-          "and <state> is string of characters 'A'(ALIVE), 'D'(DEAD).\n" +
-
-          "Example: " + filename + " 2 5 DDDADDD.\n\n";
+    return "This is a celluar state application.\n\n" \
+           "Please provide arguments in the following format:\n\n$ " +
+           filename + " <count_iterations> <rows> <state>\n\n" \
+           "Where all arguments are positive integer numbers, " \
+           "and <state> is string of characters 'A'(ALIVE), 'D'(DEAD).\n" \
+           "Example: " + filename + " 2 5 DDDADDD.\n\n";
 }

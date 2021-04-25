@@ -10,7 +10,8 @@
 
 #include "include/30_rule.h"
 
-inline static const std::string getErrorText(const char* argv, const char* message) {
+inline static const std::string getErrorText(const char* argv,
+                                             const char* message) {
     return "ERROR " + std::string(argv) + " " + message + "\n";
 }
 
@@ -28,7 +29,7 @@ std::string CellularStateApplication::operator()(int argc,
         if (count_iteration <= 0)
             throw std::runtime_error("invalid arguments");
     } catch (std::exception& e) {
-            return getErrorText(argv[1], e.what()) + help(argv[0]);
+        return getErrorText(argv[1], e.what()) + help(argv[0]);
     }
 
     try {
@@ -50,7 +51,9 @@ std::string CellularStateApplication::operator()(int argc,
 
     automat.iterate(count_iteration);
 
-    const std::vector<std::vector<CellState>>& automat_states = automat.get_state();
+    const std::vector<std::vector<CellState>>& automat_states =
+        automat.get_state();
+
     std::ostringstream stream;
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {

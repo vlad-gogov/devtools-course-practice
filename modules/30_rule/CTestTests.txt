@@ -47,7 +47,7 @@ add_test(
     NAME ${prefix}_can_detect_wrong_state
     COMMAND ${APPLICATION} 2 2 DABD
 )
-set_tests_properties (${prefix}_can_detect_wrong_rows PROPERTIES
+set_tests_properties (${prefix}_can_detect_wrong_state PROPERTIES
     PASS_REGULAR_EXPRESSION "ERROR: Incorrect state."
     LABELS "${MODULE}")
 
@@ -56,5 +56,5 @@ add_test(
     COMMAND ${APPLICATION} 2 2 DAD
 )
 set_tests_properties (${prefix}_can_with_valid_arguments_1 PROPERTIES
-    PASS_REGULAR_EXPRESSION "DAD/nDAD"
+    PASS_REGULAR_EXPRESSION "DAD\nDAD"
     LABELS "${MODULE}")

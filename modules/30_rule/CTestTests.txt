@@ -58,3 +58,27 @@ add_test(
 set_tests_properties (${prefix}_can_with_valid_arguments_1 PROPERTIES
     PASS_REGULAR_EXPRESSION "DAD\nDAD"
     LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_with_valid_arguments_2
+    COMMAND ${APPLICATION} 3 5 DDADD
+)
+set_tests_properties (${prefix}_can_with_valid_arguments_2 PROPERTIES
+    PASS_REGULAR_EXPRESSION "DDADD\nDAAAD\nDADDD\nDAADD\nDADAD"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_with_valid_arguments_3
+    COMMAND ${APPLICATION} 4 7 ADADAD
+)
+set_tests_properties (${prefix}_can_with_valid_arguments_3 PROPERTIES
+    PASS_REGULAR_EXPRESSION "ADADAD\nDDADAD\nDAADAD\nDADDAD\nDAAAAD\nDADDDD\nDAADDD"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_with_valid_arguments_4
+    COMMAND ${APPLICATION} 2 2 DDADDA
+)
+set_tests_properties (${prefix}_can_with_valid_arguments_4 PROPERTIES
+    PASS_REGULAR_EXPRESSION "DDADDA\nDAAAAD"
+    LABELS "${MODULE}")

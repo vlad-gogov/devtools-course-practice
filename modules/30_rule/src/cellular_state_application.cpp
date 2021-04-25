@@ -60,7 +60,7 @@ std::string CellularStateApplication::operator()(int argc,
 
 std::string CellularStateApplication::help(const std::string& filename) const {
     return "This is a celluar state application.\n\n" \
-           "Please provide arguments in the following format:\n\n$ " +
+           "Please provide arguments in the following format:\n$ " +
            filename + " <count_iterations> <rows> <state>\n\n" \
            "Where all arguments are positive integer numbers, " \
            "and <state> is string of characters 'A'(ALIVE), 'D'(DEAD).\n" \

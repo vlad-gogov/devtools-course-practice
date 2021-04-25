@@ -12,6 +12,7 @@ enum class CellState {
 
 class CellularAuto {
  public:
+    CellularAuto() = default;
     CellularAuto(const unsigned int rows, const unsigned int cols);
     CellularAuto(const unsigned int rows, const unsigned int cols,
                  const std::vector<CellState>& states);

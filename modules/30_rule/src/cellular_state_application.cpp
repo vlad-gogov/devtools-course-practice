@@ -10,9 +10,12 @@
 
 #include "include/30_rule.h"
 
-inline static const std::string getErrorText(const char* argv,
-                                             const char* message) {
-    return "ERROR " + std::string(argv) + " " + message + "\n";
+inline int checkArgument(const char* argv) {
+    int result = std::stoi(argv);
+    if (result <= 0)
+        throw std::runtime_error("ERROR " + std::string(argv) +
+                                 " invalid arguments\n");
+    return result;
 }
 
 std::string CellularStateApplication::operator()(int argc,
@@ -25,19 +28,10 @@ std::string CellularStateApplication::operator()(int argc,
 
     int count_iteration, rows;
     try {
-        count_iteration = std::stoi(argv[1]);
-        if (count_iteration <= 0)
-            throw std::runtime_error("invalid arguments");
+        count_iteration = checkArgument(argv[1]);
+        rows = checkArgument(argv[2]);
     } catch (std::exception& e) {
-        return getErrorText(argv[1], e.what()) + help(argv[0]);
-    }
-
-    try {
-        rows = std::stoi(argv[2]);
-        if (rows <= 0)
-            throw std::runtime_error("invalid arguments");
-    } catch (std::exception& e) {
-        return getErrorText(argv[2], e.what()) + help(argv[0]);
+        return e.what() + help(argv[0]);
     }
 
     int cols = static_cast<int>(std::strlen(argv[3]));
